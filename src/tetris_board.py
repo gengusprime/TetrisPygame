@@ -182,11 +182,6 @@ class TetrisBoard:
         """
         screen.fill(BLACK)
         self.draw_game_over_height(screen)
-        # Draw each cell in the grid
-        for y, row in enumerate(self.grid):
-            for x, cell in enumerate(row):
-                if cell:
-                    pygame.draw.rect(screen, cell, (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1))
         
         # Draw the current Tetromino
         for i, row in enumerate(self.current_piece.shape[self.current_piece.rotation % len(self.current_piece.shape)]):
@@ -203,6 +198,14 @@ class TetrisBoard:
             for j, cell in enumerate(row):
                 if cell == 'O':
                     pygame.draw.rect(screen, self.current_piece.color, ((outline.x + j) * GRID_SIZE, (outline.y + i) * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1), width = 2)
+
+        # Draw each cell in the grid
+        for y, row in enumerate(self.grid):
+            for x, cell in enumerate(row):
+                if cell:
+                    pygame.draw.rect(screen, cell, (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1))
+                elif y > 3:
+                    pygame.draw.rect(screen, (100,100,100,1), (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE), width = 1)
 
 class LiteTetrisBoard(TetrisBoard):
     """
